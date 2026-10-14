@@ -162,9 +162,9 @@ document.addEventListener('DOMContentLoaded', () => {
             envelopeVideo.play().catch(() => {});
             envelopeVideo.addEventListener('ended', finishOpening, { once: true });
             envelopeVideo.addEventListener('timeupdate', () => {
-                if (envelopeVideo.currentTime >= 2.6) finishOpening();
+                if (envelopeVideo.currentTime >= 5.5) finishOpening();
             });
-            setTimeout(finishOpening, 2900);
+            setTimeout(finishOpening, 6000);
         } else {
             finishOpening();
         }
@@ -179,9 +179,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 isEnvelopeOpening = true;
                 envelopeVideo.addEventListener('ended', finishOpening, { once: true });
                 envelopeVideo.addEventListener('timeupdate', () => {
-                    if (envelopeVideo.currentTime >= 2.6) finishOpening();
+                    if (envelopeVideo.currentTime >= 5.5) finishOpening();
                 });
-                setTimeout(finishOpening, 2900);
+                setTimeout(finishOpening, 6000);
             }).catch(() => {
                 // If autoplay prevented, user can tap anywhere to start
             });
@@ -227,6 +227,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (envelopeVideo) {
                     envelopeVideo.currentTime = 0;
                     envelopeVideo.play().catch(() => {});
+                    envelopeVideo.addEventListener('ended', finishOpening, { once: true });
+                    const onReplayTime = () => {
+                        if (envelopeVideo.currentTime >= 7.0) {
+                            finishOpening();
+                            envelopeVideo.removeEventListener('timeupdate', onReplayTime);
+                        }
+                    };
+                    envelopeVideo.addEventListener('timeupdate', onReplayTime);
+                    setTimeout(finishOpening, 7500);
                 }
             }
         });
