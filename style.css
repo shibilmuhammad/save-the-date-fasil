@@ -1194,3 +1194,244 @@ body.opening-active {
     opacity: 1;
     transform: translate3d(0, 0, 0);
 }
+
+/* ==========================================================================
+   WELCOME NOTE CALLOUT
+   ========================================================================== */
+.welcome-note-callout {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(210, 192, 138, 0.18) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(210, 192, 138, 0.18) 100%);
+    border: 1px solid var(--border-gold);
+    border-radius: 50px;
+    padding: 10px 24px;
+    margin: 1.25rem auto 0.75rem;
+    box-shadow: 0 4px 15px rgba(158, 130, 74, 0.08);
+}
+
+.welcome-note-callout svg {
+    color: var(--gold-accent);
+    flex-shrink: 0;
+}
+
+.welcome-note-text {
+    font-family: var(--font-serif-display);
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--primary-brown);
+    letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   NIKAH MILESTONE SECTION (Sacred Bond Certified)
+   ========================================================================== */
+.nikah-section {
+    padding: 4.5rem 0;
+    text-align: center;
+}
+
+.nikah-card {
+    padding: 2.25rem 1.5rem;
+    max-width: 860px;
+    margin: 2rem auto 0;
+    border-radius: 32px;
+}
+
+@media (min-width: 768px) {
+    .nikah-card {
+        padding: 3rem 2.5rem;
+    }
+}
+
+.nikah-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .nikah-grid {
+        grid-template-columns: 0.85fr 1.15fr;
+        text-align: left;
+    }
+}
+
+.nikah-frame-wrapper {
+    position: relative;
+    max-width: 330px;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 8px;
+    background: linear-gradient(135deg, rgba(210, 192, 138, 0.7) 0%, #ffffff 50%, rgba(158, 130, 74, 0.5) 100%);
+    box-shadow: 0 16px 40px rgba(158, 130, 74, 0.2);
+    border: 1.5px solid var(--gold-primary);
+}
+
+.nikah-frame-inner {
+    border-radius: 14px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border: 1px solid rgba(210, 192, 138, 0.5);
+    background: #fff;
+}
+
+.nikah-frame-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s ease;
+}
+
+.nikah-frame-wrapper:hover .nikah-frame-inner img {
+    transform: scale(1.03);
+}
+
+.nikah-date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    background: rgba(210, 192, 138, 0.22);
+    border: 1px solid var(--border-gold);
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--gold-accent);
+    margin: 0.75rem 0 1.25rem;
+}
+
+.nikah-date-badge svg {
+    color: var(--gold-primary);
+}
+
+.nikah-quote-box {
+    background: rgba(255, 255, 255, 0.85);
+    border-left: 3px solid var(--gold-primary);
+    padding: 1rem 1.25rem;
+    border-radius: 0 14px 14px 0;
+    margin: 1rem 0;
+    font-family: var(--font-serif-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--primary-brown);
+    line-height: 1.6;
+}
+
+.nikah-desc-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* ==========================================================================
+   FAMILY & PARENTAGE SECTION
+   ========================================================================== */
+.family-section {
+    padding: 4.5rem 0;
+    text-align: center;
+}
+
+.family-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 820px;
+    margin: 2.5rem auto 0;
+}
+
+@media (min-width: 768px) {
+    .family-cards-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+    }
+}
+
+.family-card {
+    padding: 2.25rem 1.75rem;
+    border-radius: 28px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1.5px solid var(--border-gold);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.family-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 45px rgba(158, 130, 74, 0.18);
+}
+
+.family-role-badge {
+    display: inline-block;
+    padding: 4px 16px;
+    background: rgba(210, 192, 138, 0.18);
+    border: 1px solid var(--border-gold);
+    border-radius: 50px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--gold-accent);
+    margin-bottom: 0.75rem;
+}
+
+.family-person-title {
+    font-family: var(--font-curly);
+    font-size: 2.6rem;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+}
+
+.family-details-box {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--border-gold-light);
+    border-radius: 18px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.family-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.family-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--gold-accent);
+    font-weight: 600;
+}
+
+.family-parents-name {
+    font-family: var(--font-serif-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary-brown);
+}
+
+.family-divider-mini {
+    width: 42px;
+    height: 1px;
+    background: var(--gold-primary);
+    opacity: 0.6;
+    margin: 0 auto;
+}
+
+.family-address-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    font-weight: 500;
+}

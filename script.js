@@ -233,9 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // 4. Countdown Timer Logic (October 21, 2026 at 11:00 AM)
+    // 4. Countdown Timer Logic (November 14, 2026 at 12:00 PM)
     // =========================================================================
-    const targetDate = new Date("October 21, 2026 11:00:00").getTime();
+    const targetDate = new Date("November 14, 2026 12:00:00").getTime();
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
@@ -444,8 +444,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (shareBtn) {
         shareBtn.addEventListener('click', async () => {
             const shareData = {
-                title: 'Wedding Invitation | Shinin Abdullah & Fathima Abdul Jamal',
-                text: 'Join us in celebrating the sacred Wedding Ceremony of Shinin Abdullah & Fathima Abdul Jamal on Wednesday, October 21, 2026 at Meruzila Convention Center.',
+                title: 'Wedding Invitation | Dr. Muhammed Fasil & Dr. Anjala Rahman',
+                text: 'With the blessings of Almighty Allah & our families, you are cordially invited to celebrate the Wedding of Dr. Muhammed Fasil & Dr. Anjala Rahman on Saturday, November 14, 2026 at Sumangali Convention Centre, Melattur. Kindly grace this occasion with your presence and duas.',
                 url: window.location.href
             };
 

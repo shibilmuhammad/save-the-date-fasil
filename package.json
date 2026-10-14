@@ -1,7 +1,7 @@
 {
-  "name": "shirin-fathima",
+  "name": "save-the-date-fasil",
   "version": "1.0.0",
-  "description": "Save the date wedding website for Shinin Abdullah & Fathima Abdul Jamal",
+  "description": "Wedding invitation website for Dr. Muhammed Fasil & Dr. Anjala Rahman",
   "main": "index.html",
   "scripts": {
     "dev": "npx -y serve . -l 3000",
