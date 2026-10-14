@@ -267,9 +267,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =========================================================================
-    // 4. Countdown Timer Logic (November 14, 2026 at 12:00 PM)
+    // 4. Countdown Timer Logic (November 14, 2026 at 11:00 AM)
     // =========================================================================
-    const targetDate = new Date("November 14, 2026 12:00:00").getTime();
+    const targetDate = new Date("November 14, 2026 11:00:00").getTime();
     const daysEl = document.getElementById('days');
     const hoursEl = document.getElementById('hours');
     const minutesEl = document.getElementById('minutes');
