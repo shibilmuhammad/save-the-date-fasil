@@ -108,9 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const invitationContent = document.getElementById('invitation-content');
     const replayEnvelopeBtn = document.getElementById('replay-envelope-btn');
     let isEnvelopeOpening = false;
+    let openingFinished = false;
 
     function finishOpening() {
-        if (!envelopeScreen || envelopeScreen.classList.contains('opened')) return;
+        if (openingFinished) return;
+        openingFinished = true;
+        if (!envelopeScreen) return;
         envelopeScreen.classList.add('opened');
 
         // Reveal floating music control button once invitation is opened
@@ -143,69 +146,90 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 750);
     }
 
-    function triggerEnvelopeOpen() {
-        if (isEnvelopeOpening) {
-            finishOpening();
-            playNasheed();
-            return;
-        }
-        isEnvelopeOpening = true;
-
-        if (tapPrompt) {
-            tapPrompt.style.opacity = '0';
-            tapPrompt.style.pointerEvents = 'none';
-        }
-
-        playNasheed();
-
-        if (envelopeVideo) {
-            envelopeVideo.play().catch(() => {});
-            envelopeVideo.addEventListener('ended', finishOpening, { once: true });
-            envelopeVideo.addEventListener('timeupdate', () => {
-                if (envelopeVideo.currentTime >= 5.5) finishOpening();
-            });
-            setTimeout(finishOpening, 6000);
-        } else {
-            finishOpening();
-        }
-    }
-
-    // Auto-play envelope video immediately on page load
+    // Attach listeners unconditionally to the video element
     if (envelopeVideo) {
         envelopeVideo.muted = true;
-        const autoPlayPromise = envelopeVideo.play();
-        if (autoPlayPromise !== undefined) {
-            autoPlayPromise.then(() => {
+        envelopeVideo.defaultMuted = true;
+        envelopeVideo.playsInline = true;
+        envelopeVideo.setAttribute('muted', '');
+        envelopeVideo.setAttribute('playsinline', '');
+        envelopeVideo.setAttribute('webkit-playsinline', '');
+
+        // When video reaches 5.0 seconds (card is fully zoomed and visible), transition automatically
+        envelopeVideo.addEventListener('timeupdate', () => {
+            if (envelopeVideo.currentTime >= 5.0) {
+                finishOpening();
+            }
+        });
+
+        // When video ends, transition automatically
+        envelopeVideo.addEventListener('ended', finishOpening, { once: true });
+
+        // When playback starts, set fallback timer based on video duration
+        envelopeVideo.addEventListener('play', () => {
+            isEnvelopeOpening = true;
+            setTimeout(finishOpening, 5800);
+        });
+    }
+
+    // Attempt video playback immediately & on multiple events
+    function tryPlayEnvelopeVideo() {
+        if (!envelopeVideo || openingFinished) return;
+        envelopeVideo.muted = true;
+        envelopeVideo.defaultMuted = true;
+        const playPromise = envelopeVideo.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
                 isEnvelopeOpening = true;
-                envelopeVideo.addEventListener('ended', finishOpening, { once: true });
-                envelopeVideo.addEventListener('timeupdate', () => {
-                    if (envelopeVideo.currentTime >= 5.5) finishOpening();
-                });
-                setTimeout(finishOpening, 6000);
             }).catch(() => {
-                // If autoplay prevented, user can tap anywhere to start
+                // If browser restricts unmuted audio or strict video policy,
+                // video remains ready and will start on any touch
             });
         }
     }
 
-    if (envelopeScreen) {
-        envelopeScreen.addEventListener('click', triggerEnvelopeOpen);
+    // 1. Try playing immediately
+    tryPlayEnvelopeVideo();
+
+    // 2. Try on canplay / loadeddata
+    if (envelopeVideo) {
+        envelopeVideo.addEventListener('canplay', tryPlayEnvelopeVideo, { once: true });
+        envelopeVideo.addEventListener('loadeddata', tryPlayEnvelopeVideo, { once: true });
     }
 
-    // Auto-enable Nasheed audio on first user touch/click/scroll if browser blocked initial autoplay
+    // 3. Try on DOM load & Window load
+    document.addEventListener('DOMContentLoaded', tryPlayEnvelopeVideo);
+    window.addEventListener('load', tryPlayEnvelopeVideo);
+
+    // 4. Global failsafe: if video cannot load or user is on slow network, reveal homepage after 6.5s
+    setTimeout(finishOpening, 6500);
+
+    // Optional tap to skip video directly
+    if (envelopeScreen) {
+        envelopeScreen.addEventListener('click', () => {
+            finishOpening();
+            playNasheed();
+        });
+    }
+
+    // Auto-enable Nasheed audio on first user touch/click/scroll (browser policy requires gesture for audio)
     const startAudioOnFirstInteraction = (e) => {
         if (userManuallyMuted) return;
         if (e && e.target && e.target.closest('#floating-music-btn')) return;
+        tryPlayEnvelopeVideo();
         if (!isMusicPlaying) {
             playNasheed();
         }
-        ['click', 'touchstart', 'scroll'].forEach(evt => {
+        ['click', 'touchstart', 'scroll', 'pointerdown'].forEach(evt => {
             window.removeEventListener(evt, startAudioOnFirstInteraction, { capture: true });
         });
     };
-    ['click', 'touchstart', 'scroll'].forEach(evt => {
+    ['click', 'touchstart', 'scroll', 'pointerdown'].forEach(evt => {
         window.addEventListener(evt, startAudioOnFirstInteraction, { capture: true, passive: true });
     });
+
+    // Also attempt playing audio on load in case permissions allow it
+    playNasheed();
 
     // Replay Video Envelope
     if (replayEnvelopeBtn) {
@@ -221,6 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 lenis.scrollTo(0, { immediate: true });
             }
             isEnvelopeOpening = false;
+            openingFinished = false;
             if (envelopeScreen) {
                 envelopeScreen.style.display = 'flex';
                 envelopeScreen.classList.remove('opened');
@@ -229,13 +254,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     envelopeVideo.play().catch(() => {});
                     envelopeVideo.addEventListener('ended', finishOpening, { once: true });
                     const onReplayTime = () => {
-                        if (envelopeVideo.currentTime >= 7.0) {
+                        if (envelopeVideo.currentTime >= 5.0) {
                             finishOpening();
                             envelopeVideo.removeEventListener('timeupdate', onReplayTime);
                         }
                     };
                     envelopeVideo.addEventListener('timeupdate', onReplayTime);
-                    setTimeout(finishOpening, 7500);
+                    setTimeout(finishOpening, 5800);
                 }
             }
         });

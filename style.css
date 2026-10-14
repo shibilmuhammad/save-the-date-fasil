@@ -132,6 +132,16 @@ body.opening-active {
     object-fit: cover;
     object-position: center;
     transition: opacity 0.7s ease;
+    pointer-events: none; /* Prevents browser native video HUD or pause toggles */
+}
+
+.envelope-video::-webkit-media-controls,
+.envelope-video::-webkit-media-controls-start-playback-button,
+.envelope-video::-webkit-media-controls-play-button {
+    display: none !important;
+    -webkit-appearance: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 /* Tap to Open Golden Pill Button */
