@@ -20,7 +20,7 @@
     --shadow-soft: 0 10px 30px rgba(158, 130, 74, 0.08);
 
     --font-script: 'Pinyon Script', cursive;
-    --font-curly: 'Great Vibes', cursive;
+    --font-curly: 'Pinyon Script', cursive;
     --font-serif-heading: 'Playfair Display', serif;
     --font-serif-display: 'Cormorant Garamond', serif;
     --font-arabic: 'Amiri', serif;
@@ -343,16 +343,36 @@ body.opening-active {
 }
 
 .hero-person-name {
-    font-family: var(--font-curly);
-    font-size: 3.2rem;
-    line-height: 1.15;
+    font-family: var(--font-script);
+    font-size: clamp(2.1rem, 7vw, 3.5rem);
+    line-height: 1.18;
     color: var(--primary-brown);
-    font-weight: 500;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.hero-person-name .first-name,
+.hero-person-name .last-name {
+    display: block;
+    letter-spacing: 0.02em;
 }
 
 @media (min-width: 640px) {
     .hero-person-name {
-        font-size: 4.2rem;
+        font-size: 3.8rem;
+        display: block;
+    }
+    .hero-person-name .first-name,
+    .hero-person-name .last-name {
+        display: inline;
+    }
+    .hero-person-name .first-name {
+        margin-right: 0.35rem;
     }
 }
 
@@ -547,7 +567,7 @@ body.opening-active {
 }
 
 .blessing-names {
-    font-family: var(--font-curly);
+    font-family: var(--font-script);
     font-size: 2.8rem;
     color: var(--primary-brown);
     margin-top: 0.5rem;
@@ -683,7 +703,7 @@ body.opening-active {
 }
 
 .person-name-curly {
-    font-family: var(--font-curly);
+    font-family: var(--font-script);
     font-size: 2.6rem;
     color: var(--primary-brown);
     line-height: 1.2;
@@ -718,13 +738,33 @@ body.opening-active {
     position: relative;
     width: 100%;
     max-width: 440px;
-    height: 230px;
+    height: 260px;
     margin: 2rem auto 1rem;
     border-radius: 26px;
     overflow: hidden;
     border: 2px solid var(--gold-primary);
     box-shadow: var(--shadow-luxury);
     background: #ffffff;
+}
+
+.scratch-couple-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--gold-accent);
+    box-shadow: 0 4px 14px rgba(158, 130, 74, 0.2);
+    margin-bottom: 0.35rem;
+    background: #ffffff;
+    flex-shrink: 0;
+}
+
+.scratch-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }
 
 .scratch-card-under {
@@ -992,8 +1032,8 @@ body.opening-active {
 }
 
 .footer-couple-names {
-    font-family: var(--font-curly);
-    font-size: 3rem;
+    font-family: var(--font-script);
+    font-size: 3.2rem;
     color: var(--primary-brown);
 }
 
@@ -1242,6 +1282,33 @@ body.opening-active {
     text-align: center;
 }
 
+.family-illustration-badge {
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gold-primary);
+    box-shadow: 0 8px 25px rgba(158, 130, 74, 0.22);
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease;
+}
+
+.family-illustration-badge:hover {
+    transform: scale(1.05);
+}
+
+.family-illustration-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
 .family-cards-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1288,7 +1355,7 @@ body.opening-active {
 }
 
 .family-person-title {
-    font-family: var(--font-curly);
+    font-family: var(--font-script);
     font-size: 2.6rem;
     line-height: 1.15;
     margin-bottom: 1.25rem;
